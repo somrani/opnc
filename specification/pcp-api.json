@@ -8,5 +8,185 @@
       {"url":"https://api.server.test/opnc/v1/pcp"}
     ],
     "paths": {
+      "/provisioningCertificates": {
+        "get": {
+          "summary": "Get an OEM Provisioning Certificate",
+          "operationId": "ProvisioningCertificates",
+          "tags": [
+            "ProvisioningCertificates"
+          ],  
+          "description": "Get an OEM provisioning certificate from the PCP.",
+          "parameters": [
+            {
+              "name": "pcid",
+              "in": "query",
+              "description": "Unique ID of the PLC card in the vehicle",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],  
+          "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                      "application/json":{
+                        "schema":{
+                          "$ref": "#/components/schemas/ProvisioningCertificateDataType"
+                        }
+                      }
+                    }
+                }
+            }
+        },
+        "post": {
+          "summary": "Add an OEM Provisioning Certificate",
+          "operationId": "ProvisioningCertificates",
+          "tags": [
+            "ProvisioningCertificates"
+          ],  
+          "description": "Add an OEM provisioning certificate to the PCP.",
+          "requestBody":{
+            "content": {
+              "application/json":{
+                "schema":{
+                  "$ref": "#/components/schemas/ProvisioningCertificateDataType"
+                }
+              }
+            }
+          },  
+          "responses": {
+            "201": {
+              "description": "OEM provisioning certificate added",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/ProvisioningCertificateDataType"
+                  }
+                }
+              }
+            },
+            "400":{
+              "description": "Invalid input"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update an OEM Provisioning Certificate",
+          "operationId": "ProvisioningCertificates",
+          "tags": [
+            "ProvisioningCertificates"
+          ],  
+          "description": "Update an OEM provisioning certificate in the PCP.",
+          "requestBody":{
+            "content": {
+              "application/json":{
+                "schema":{
+                  "$ref": "#/components/schemas/ProvisioningCertificateDataType"
+                }
+              }
+            }
+          },  
+          "responses": {
+            "200": {
+              "description": "OEM provisioning certificate created",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/ProvisioningCertificateDataType"
+                  }
+                }
+              }
+            },
+            "201": {
+              "description": "OEM provisioning certificate added",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/ProvisioningCertificateDataType"
+                  }
+                }
+              }
+            },
+            "400":{
+              "description": "Invalid input"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete an OEM Provisioning Certificate",
+          "operationId": "ProvisioningCertificates",
+          "tags": [
+            "ProvisioningCertificates"
+          ],  
+          "description": "Delete an OEM provisioning certificate from the PCP.",
+          "parameters": [
+            {
+              "name": "pcid",
+              "in": "query",
+              "description": "Unique ID of the PLC card in the vehicle",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "OK"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "ProvisioningCertificateDataType":{
+          "type": "object",
+          "required": ["provisioningCertificate","subCa1Certificate","xsdMsgDefNamespace","v2gRootAuthorityKeyIdentifiers","rootAuthorityKeyIdentifier","rootIssuerSerialNumber","rootIssuerDistinguishedName"],
+          "properties": {
+            "provisioningCertificate":{
+              "type":"string",
+              "description": "The OEM provisioning certificate"
+            },
+            "subCa1Certificate":{
+              "type":"string",
+              "description": "The OEM provisioning certificate SubCA level 1"
+            },
+            "subCa2Certificate":{
+              "type":"string",
+              "description": "The OEM provisioning certificate SubCA level 2"
+            },
+            "xsdMsgDefNamespace":{
+              "type":"string",
+              "description": "The OEM provisioning certificate XXXXX"
+            },
+            "v2gRootAuthorityKeyIdentifiers":{
+              "type": "array",
+              "items":{
+                "type": "string"
+              },
+              "description": "List of V2G root identifiers"
+            },
+            "rootAuthorityKeyIdentifier":{
+              "type": "string",
+              "description": "XXXXX"
+            },
+            "rootIssuerSerialNumber":{
+              "type": "string",
+              "description": "XXXXX"
+            },
+            "rootIssuerDistinguishedName":{
+              "type": "string",
+              "description": "XXXXX"
+            },
+            "fingerprint":{
+              "type": "string",
+              "description": "XXXXX"
+            }
+          }
+        }
+      }
     }
   }
